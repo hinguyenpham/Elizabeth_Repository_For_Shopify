@@ -1,5 +1,4 @@
-{% assign display_number = section.settings.pagination_number %}
-{% paginate blog.articles by display_number %}
+{% paginate blog.articles by number_of_blog_posts %}
     {% for article in blog.articles %}
         <div>
             {% if article.image %}
@@ -23,25 +22,13 @@
         "tag": "section",
         "settings": [
             {
-                "type": "select",
-                "id": "pagination_number",
-                "label": "Pagination Number",
-                "info": "Number of article display on per page",
-                "options": [
-                    {
-                        "value": 1,
-                        "label": "1"
-                    },
-                    {
-                        "value": 3,
-                        "label": "3"
-                    },
-                    {
-                        "value": 5,
-                        "label": '5'
-                    }
-                ],
-                "default": 3
+                "type": "range",
+                "step": 1,
+                "min": 1,
+                "max": 6,
+                "id": "number_of_blog_posts",
+                "label": "Blog posts per page",
+                "default": "3"
             }
         ]
     }
