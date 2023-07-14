@@ -1,0 +1,48 @@
+{% assign display_number = section.settings.pagination_number %}
+{% paginate blog.articles by display_number %}
+    {% for article in blog.articles %}
+        <div>
+            {% if article.image %}
+                <img src="{{ article.image | img_url: 'medium' }}" alt="{{ article.image.alt }}">
+            {% else %}
+                {{ "image" | placeholder_svg_tag: 'w-20' }}
+            {% endif %}
+            {{ article.title }}
+            {% if article.excerpt.size > 0 %}
+                {{ article.excerpt }}
+            {% else %}
+                <p>{{ article.content | strip_html | truncatewords: 15, '...' }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+{% endpaginate %}
+
+{% schema %}
+    {
+        "name": "Template Blog",
+        "tag": "section",
+        "settings": [
+            {
+                "type": "select",
+                "id": "pagination_number",
+                "label": "Pagination Number",
+                "info": "Number of article display on per page",
+                "options": [
+                    {
+                        "value": 1,
+                        "label": "1"
+                    },
+                    {
+                        "value": 3,
+                        "label": "3"
+                    },
+                    {
+                        "value": 5,
+                        "label": '5'
+                    }
+                ],
+                "default": 3
+            }
+        ]
+    }
+{% endschema %}
