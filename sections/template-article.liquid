@@ -53,7 +53,7 @@
                 <h1 class="text-lg mb-4 font-medium">
                     See what people are saying
                 </h1>
-                {% paginate article.comments by 5 %}
+                {% paginate article.comments by 2 %}
                     {% for cmt in article.comments %}
                         <div class="flex-1 border my-4 px-4 py-2 sm:px-6 sm:py-4 leading-relaxed">
                             <span class="comment-author">{{ cmt.author }}</span>
@@ -61,9 +61,11 @@
                             <p class="text-sm">{{ cmt.content }}</p>
                         </div>
                     {% endfor %}
-                    {% if paginate.pages > 1 %}
-                        {{ paginate | default_pagination }}
-                    {% endif %}
+
+                    <div class="max-w-6xl mx-auto">
+                        {% render 'pagination', pagination: paginate %}
+                    </div>
+
                 {% endpaginate %}
             </div>
         {% else %}
@@ -147,8 +149,8 @@
 <script type="application/ld+json">
     {
     "@context" : "http://schema.org",
-            "@type" : "BlogPosting",
-            "headline" : {{ article.title | json }},
+                                "@type" : "BlogPosting",
+                                "headline" : {{ article.title | json }},
     "articleBody": {{ article.content | strip_html | json }},
     {% if article.excerpt != blank %}
         "description": {{ article.excerpt | strip_html | json }},
@@ -161,12 +163,12 @@
     "datePublished": {{ article.published_at | date: format: "default" | json }},
     "dateCreated": {{ article.created_at | date: format: "default" | json }},
     "author": {
-                "@type": "Person",
-                "name": {{ article.author | json }}
+                                    "@type": "Person",
+                                    "name": {{ article.author | json }}
     },
     "publisher": {
-                "@type": "Organization",
-                "name": {{ shop.name | json }}
+                                    "@type": "Organization",
+                                    "name": {{ shop.name | json }}
     }
     }
 </script>
