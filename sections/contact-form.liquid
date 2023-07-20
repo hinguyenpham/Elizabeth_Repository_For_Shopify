@@ -1,4 +1,9 @@
 <div class="flex flex-col items-center my-8">
+    {% if section.settings.title != blank %}
+        <h1 class="text-3xl font-medium my-8 md:my-16">
+            {{ section.settings.title }}
+        </h1>
+    {% endif %}
     {% form 'contact' %}
 
         {% if form.errors %}
@@ -31,12 +36,13 @@
         <div class="max-w-6xl mx-auto justify-center flex-1 items-center px-4">
             <div class="flex px-1 mb-3">
                 <div class="px-3 md:w-1/2">
-                    <label class="uppercase text-xs text-gray-500 font-medium" for="contact_first_name">Name</label>
+                    <label class="uppercase text-xs text-gray-500 font-medium" for="contact_name">Name</label>
                     <input
                         class="border py-3 px-4 mb-3 text-gray-700 w-full"
                         type="text"
-                        name="contact[first_name]"
-                        id="contact_first_name">
+                        name="contact[name]"
+                        id="contact_name"
+                        required>
                 </div>
                 <div class="px-3 md:w-1/2">
                     <label class="uppercase text-xs text-gray-500 font-medium" for="contact_email">Email address</label>
@@ -44,7 +50,8 @@
                         class="border py-3 px-4 mb-3 text-gray-700 w-full"
                         type="email"
                         name="contact[email]"
-                        id="contact_email">
+                        id="contact_email"
+                        required>
                 </div>
             </div>
             <div class="flex px-1 mb-3">
@@ -71,6 +78,13 @@
 {% schema %}
     {
         "name": "Contact Form",
+        "settings": [
+            {
+                "type": "text",
+                "id": "title",
+                "label": "Title"
+            }
+        ],
         "presets": [
             {
                 "name": "Contact Form"
