@@ -12,8 +12,9 @@
                                 {% if article.image %}
                                     <img
                                         class="w-full h-80 object-cover"
-                                        src="{{ article.image | img_url: 'large' }}"
-                                        alt="{{ article.image.alt }}">
+                                        src="{{ article.image | image_url: width: 480, height: 480 }}"
+                                        alt="{{ article.image.alt }}"
+                                        loading="eager">
                                 {% else %}
                                     {{ "image" | placeholder_svg_tag: 'w-full h-80 object-cover bg-gray-100' }}
                                 {% endif %}
